@@ -6,15 +6,10 @@ public class CubeSpawner : MonoBehaviour
     [SerializeField] private float _explodeRadius;
     [SerializeField] private float _explodeForce;
 
-    private List<Cube> _createdCubs;
-
-    private void Awake()
-    {
-        _createdCubs = new List<Cube>();
-    }
-
     public void Spawn(Cube cube)
     {
+        List<Cube> _createdCubs = new List<Cube> ();
+
         int minChaceSpawn = 0;
         int maxChaceSpawn = 100;
 
@@ -25,9 +20,9 @@ public class CubeSpawner : MonoBehaviour
             int quantityCubes = Random.Range(minQuantity, maxQuantity + 1);
 
             for (int i = 0; i < quantityCubes; i++)
-                CreateCube(cube);
+                CreateCube(cube, ref _createdCubs);
 
-            ExplotionForce();
+            Explode(_createdCubs);
 
             _createdCubs.Clear();
         }
@@ -35,24 +30,20 @@ public class CubeSpawner : MonoBehaviour
         cube.Destroy();
     }
 
-    private Cube CreateCube(Cube cube)
+    private Cube CreateCube(Cube cube, ref List<Cube> cubs)
     {
-        int divider = 2;
-
         Cube newCube = Instantiate(cube, cube.transform.position, cube.transform.rotation);
 
-        newCube.transform.localScale = cube.transform.localScale / divider;
-        newCube.ReduceChance(cube.ChanceSpawn);
-        newCube.Paint();
+        newCube.Init();
 
-        _createdCubs.Add(newCube);
+        cubs.Add(newCube);
 
         return newCube;
     }
 
-    private void ExplotionForce()
+    private void Explode(List<Cube> cubs)
     {
-        foreach (Cube cube in _createdCubs)
-            cube.ExplotionForce(_explodeForce, _explodeRadius);
+        foreach (Cube cube in cubs)
+            cube.Explode(_explodeForce, _explodeRadius);
     }
 }

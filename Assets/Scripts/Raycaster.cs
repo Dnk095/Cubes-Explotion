@@ -8,15 +8,13 @@ public class Raycaster : MonoBehaviour
 
     public RaycastHit Hit { get; private set; }
 
-    private Ray _ray;    
-
-    private int _mouseButtonNumber = 0;
+    private int _mousseButtonTrigger = 0;
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(_mouseButtonNumber))
+        if (Input.GetMouseButtonDown(_mousseButtonTrigger))
         {
-            _ray = _camera.ScreenPointToRay(Input.mousePosition);
+           Ray _ray = _camera.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(_ray, out RaycastHit hit, Mathf.Infinity, _layerMask))
             {

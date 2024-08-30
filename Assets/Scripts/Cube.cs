@@ -6,11 +6,11 @@ public class Cube : MonoBehaviour
 {
     [SerializeField] private float _chanceSpawn;
 
-    public float ChanceSpawn => _chanceSpawn;
-
     private Rigidbody _rigidbody;
 
     private Material _material;
+
+    public float ChanceSpawn => _chanceSpawn;
 
     private void Awake()
     {
@@ -23,19 +23,23 @@ public class Cube : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void ReduceChance(float chance)
-    {
-        int divider = 2;
-        _chanceSpawn = chance /= divider;
-    }
-
-    public void ExplotionForce(float force, float radius)
+    public void Explode(float force, float radius)
     {
         _rigidbody.AddExplosionForce(force, transform.position, radius);
     }
 
     public void Paint()
     {
+        _material.color = new Color(Random.value, Random.value, Random.value);
+    }
+
+    public void Init()
+    {
+        int divider = 2;
+        _chanceSpawn /= divider;
+
+        transform.localScale /= divider;
+
         _material.color = new Color(Random.value, Random.value, Random.value);
     }
 }
