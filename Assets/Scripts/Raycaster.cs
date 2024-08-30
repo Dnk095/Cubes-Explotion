@@ -8,7 +8,7 @@ public class Raycaster : MonoBehaviour
 
     public RaycastHit Hit { get; private set; }
 
-    private Ray _ray;
+    private Ray _ray;    
 
     private int _mouseButtonNumber = 0;
 

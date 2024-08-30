@@ -28,6 +28,8 @@ public class CubeSpawner : MonoBehaviour
                 CreateCube(cube);
 
             ExplotionForce();
+
+            _createdCubs.Clear();
         }
 
         cube.Destroy();
