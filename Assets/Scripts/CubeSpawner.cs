@@ -3,70 +3,54 @@ using UnityEngine;
 
 public class CubeSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject _cubePrefab;
-    [SerializeField] private Raycaster _raycaster;
     [SerializeField] private float _explodeRadius;
     [SerializeField] private float _explodeForce;
 
-    private List<GameObject> _gameObjects;
+    private List<Cube> _createdCubs;
 
-    private float _chanceSpawn = 100f;
-
-    private void OnEnable()
+    private void Awake()
     {
-        _raycaster.UseMouseOnObject += OnUseMouseOnObject;
+        _createdCubs = new List<Cube>();
     }
 
-    private void OnDisable()
+    public void Spawn(Cube cube)
     {
-        _raycaster.UseMouseOnObject -= OnUseMouseOnObject;
-    }
+        int minChaceSpawn = 0;
+        int maxChaceSpawn = 100;
 
-    private void OnUseMouseOnObject()
-    {
-        float minChaceSpawn = 0f;
-        float maxChaceSpawn = 100f;
-
-        if (gameObject == _raycaster.Hit.collider.gameObject)
+        if (Random.Range(minChaceSpawn, maxChaceSpawn + 1) <= cube.ChanceSpawn)
         {
-            if (Random.Range(minChaceSpawn, maxChaceSpawn + 1) <= _chanceSpawn)
-            {
-                Spawn();
-                ExplotionForce();
-            }
+            int minQuantity = 2;
+            int maxQuantity = 6;
+            int quantityCubes = Random.Range(minQuantity, maxQuantity + 1);
 
-            Destroy(gameObject);
+            for (int i = 0; i < quantityCubes; i++)
+                CreateCube(cube);
+
+            ExplotionForce();
         }
+
+        cube.Destroy();
     }
 
-    private void Spawn()
+    private Cube CreateCube(Cube cube)
     {
-        int minQuantity = 2;
-        int maxQuantity = 6;
-        int quantityCubes = Random.Range(minQuantity, maxQuantity + 1);
+        int divider = 2;
 
-        for (int i = 0; i < quantityCubes; i++)
-            CreateNewCube();
-    }
+        Cube newCube = Instantiate(cube, cube.transform.position, cube.transform.rotation);
 
-    private GameObject CreateNewCube()
-    {
-        _gameObjects = new List<GameObject>();
+        newCube.transform.localScale = cube.transform.localScale / divider;
+        newCube.ReduceChance(cube.ChanceSpawn);
+        newCube.Paint();
 
-        GameObject newCube = Instantiate(_cubePrefab);
-
-        newCube.GetComponent<CubeSpawner>()._chanceSpawn /= 2;
-        newCube.transform.localScale /= 2;
-        newCube.GetComponent<MeshRenderer>().material.color = new Color(Random.value, Random.value, Random.value);
-
-        _gameObjects.Add(newCube);
+        _createdCubs.Add(newCube);
 
         return newCube;
     }
 
     private void ExplotionForce()
     {
-        foreach (GameObject obj in _gameObjects)
-            obj.GetComponent<Rigidbody>().AddExplosionForce(_explodeForce, transform.position, _explodeRadius);
+        foreach (Cube cube in _createdCubs)
+            cube.ExplotionForce(_explodeForce, _explodeRadius);
     }
 }
