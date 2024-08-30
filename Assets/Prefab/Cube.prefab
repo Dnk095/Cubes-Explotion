@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7797520081004878878}
   - component: {fileID: 1422019948366586104}
   - component: {fileID: -1412052314231373028}
-  - component: {fileID: 3176092512763663190}
+  - component: {fileID: 6920730343657321878}
   m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 2932433046437960764}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 2.22, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -115,7 +115,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3176092512763663190
+--- !u!114 &6920730343657321878
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,11 +124,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 2932433046437960764}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a9a3dc811e479143b0a8a0f5628bd26, type: 3}
+  m_Script: {fileID: 11500000, guid: 9e2995527ed29844d91552d8e443c73f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cubePrefab: {fileID: 2932433046437960764}
-  _raycaster: {fileID: 0}
-  _effect: {fileID: 3702631383622039976, guid: fbbda809d59774e4cbd37c5c2341e9a8, type: 3}
-  _explodeRadius: 10
-  _explodeForce: 150
