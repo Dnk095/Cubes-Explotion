@@ -5,10 +5,11 @@ public class CubeSpawner : MonoBehaviour
 {
     [SerializeField] private float _explodeRadius;
     [SerializeField] private float _explodeForce;
+    [SerializeField] private ExplodeManager _explodeManager;
 
     public void Spawn(Cube cube)
     {
-        List<Cube> _createdCubs = new List<Cube> ();
+        List<Cube> _createdCubs = new();
 
         int minChaceSpawn = 0;
         int maxChaceSpawn = 100;
@@ -22,9 +23,14 @@ public class CubeSpawner : MonoBehaviour
             for (int i = 0; i < quantityCubes; i++)
                 CreateCube(cube, ref _createdCubs);
 
-            Explode(_createdCubs);
+            Force(_createdCubs, cube);
 
             _createdCubs.Clear();
+        }
+        else
+        {
+            cube.Explode(_explodeForce, _explodeRadius);
+            _explodeManager.ExplodeForce(cube, _explodeForce*cube.Multiple, _explodeRadius * cube.Multiple);
         }
 
         cube.Destroy();
@@ -41,9 +47,9 @@ public class CubeSpawner : MonoBehaviour
         return newCube;
     }
 
-    private void Explode(List<Cube> cubs)
+    private void Force(List<Cube> cubs, Cube parentCube)
     {
         foreach (Cube cube in cubs)
-            cube.Explode(_explodeForce, _explodeRadius);
+            cube.Force(parentCube.transform.position, _explodeForce, _explodeRadius);
     }
 }

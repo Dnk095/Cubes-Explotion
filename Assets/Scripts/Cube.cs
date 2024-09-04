@@ -4,7 +4,9 @@ using UnityEngine;
 [RequireComponent(typeof(MeshRenderer))]
 public class Cube : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem _effect;
     [SerializeField] private float _chanceSpawn;
+    [SerializeField] private float _multiple;
 
     private Rigidbody _rigidbody;
 
@@ -12,34 +14,43 @@ public class Cube : MonoBehaviour
 
     public float ChanceSpawn => _chanceSpawn;
 
-    private void Awake()
-    {
-        _rigidbody = GetComponent<Rigidbody>();
-        _material = GetComponent<MeshRenderer>().material;
-    }
+    public float Multiple => _multiple;
 
     public void Destroy()
     {
         Destroy(gameObject);
     }
 
-    public void Explode(float force, float radius)
+    public void Force(Vector3 position, float force, float radius)
     {
-        _rigidbody.AddExplosionForce(force, transform.position, radius);
-    }
-
-    public void Paint()
-    {
-        _material.color = new Color(Random.value, Random.value, Random.value);
+        _rigidbody.AddExplosionForce(force, position, radius);
     }
 
     public void Init()
     {
         int divider = 2;
+
         _chanceSpawn /= divider;
 
         transform.localScale /= divider;
 
         _material.color = new Color(Random.value, Random.value, Random.value);
+
+        _multiple *= divider;
+    }
+
+    public void Explode(float force, float radius)
+    {
+        float delay = 1f;
+
+        ParticleSystem explodeEffect = Instantiate(_effect, transform.position, transform.rotation);
+
+        Destroy(explodeEffect.gameObject, delay);
+    }
+
+    private void Awake()
+    {
+        _rigidbody = GetComponent<Rigidbody>();
+        _material = GetComponent<MeshRenderer>().material;
     }
 }
