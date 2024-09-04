@@ -30,6 +30,7 @@ public class ExplodeManager : MonoBehaviour
     private float GetForceValue(Cube explodedCube, Cube forcedCube, float radius, float force)
     {
         Vector3 distanse = explodedCube.transform.position - forcedCube.transform.position;
+
         float proportion = 1.0f - (distanse / radius).magnitude;
 
         return force * proportion;
