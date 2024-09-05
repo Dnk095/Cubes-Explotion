@@ -6,8 +6,6 @@ public class Raycaster : MonoBehaviour
     [SerializeField] private CubeSpawner _spawner;
     [SerializeField] private LayerMask _layerMask;
 
-    public RaycastHit Hit { get; private set; }
-
     private int _mousseButtonTrigger = 0;
 
     private void Update()

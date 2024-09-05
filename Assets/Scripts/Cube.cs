@@ -16,12 +16,18 @@ public class Cube : MonoBehaviour
 
     public float Multiple => _multiple;
 
+    private void Awake()
+    {
+        _rigidbody = GetComponent<Rigidbody>();
+        _material = GetComponent<MeshRenderer>().material;
+    }
+
     public void Destroy()
     {
         Destroy(gameObject);
     }
 
-    public void Force(Vector3 position, float force, float radius)
+    public void Explode(Vector3 position, float force, float radius)
     {
         _rigidbody.AddExplosionForce(force, position, radius);
     }
@@ -47,10 +53,4 @@ public class Cube : MonoBehaviour
 
         Destroy(explodeEffect.gameObject, delay);
     }
-
-    private void Awake()
-    {
-        _rigidbody = GetComponent<Rigidbody>();
-        _material = GetComponent<MeshRenderer>().material;
     }
-}

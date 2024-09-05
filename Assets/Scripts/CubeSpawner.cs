@@ -9,7 +9,7 @@ public class CubeSpawner : MonoBehaviour
 
     public void Spawn(Cube cube)
     {
-        List<Cube> _createdCubs = new();
+        List<Cube> createdCubs = new();
 
         int minChaceSpawn = 0;
         int maxChaceSpawn = 100;
@@ -21,11 +21,11 @@ public class CubeSpawner : MonoBehaviour
             int quantityCubes = Random.Range(minQuantity, maxQuantity + 1);
 
             for (int i = 0; i < quantityCubes; i++)
-                CreateCube(cube, ref _createdCubs);
+                CreateCube(cube, createdCubs);
 
-            Force(_createdCubs, cube);
+            Force(createdCubs, cube);
 
-            _createdCubs.Clear();
+            createdCubs.Clear();
         }
         else
         {
@@ -36,7 +36,7 @@ public class CubeSpawner : MonoBehaviour
         cube.Destroy();
     }
 
-    private Cube CreateCube(Cube cube, ref List<Cube> cubs)
+    private Cube CreateCube(Cube cube, List<Cube> cubs)
     {
         Cube newCube = Instantiate(cube, cube.transform.position, cube.transform.rotation);
 
@@ -50,6 +50,6 @@ public class CubeSpawner : MonoBehaviour
     private void Force(List<Cube> cubs, Cube parentCube)
     {
         foreach (Cube cube in cubs)
-            cube.Force(parentCube.transform.position, _explodeForce, _explodeRadius);
+            cube.Explode(parentCube.transform.position, _explodeForce, _explodeRadius);
     }
 }

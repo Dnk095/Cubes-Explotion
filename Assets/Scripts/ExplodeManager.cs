@@ -8,7 +8,7 @@ public class ExplodeManager : MonoBehaviour
     {
         foreach (Cube explodedCube in GetExplodabledObject(cube, radius))
         {
-            explodedCube.Force(cube.transform.position,
+            explodedCube.Explode(cube.transform.position,
                 GetForceValue(cube, explodedCube, radius, force),
                 radius);
         }
