@@ -20,8 +20,8 @@ public class ExplodeManager : MonoBehaviour
         List<Cube> forsedCubs = new();
 
         foreach (Collider cubeCollider in hits)
-            if (cubeCollider.attachedRigidbody != null)
-                forsedCubs.Add(cubeCollider.GetComponent<Cube>());
+            if (cubeCollider.TryGetComponent<Cube>(out Cube component))
+                forsedCubs.Add(component);
 
         return forsedCubs;
     }
