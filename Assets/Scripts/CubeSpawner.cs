@@ -20,10 +20,15 @@ public class CubeSpawner : MonoBehaviour
             int maxQuantity = 6;
             int quantityCubes = Random.Range(minQuantity, maxQuantity + 1);
 
-            for (int i = 0; i < quantityCubes; i++)
-                CreateCube(cube, createdCubs);
+            Cube createdCube;
 
-            Force(createdCubs, cube);
+            for (int i = 0; i < quantityCubes; i++)
+            {
+                createdCube = CreateCube(cube);
+                createdCubs.Add(createdCube);
+            }
+
+            Explode(createdCubs, cube);
 
             createdCubs.Clear();
         }
@@ -36,18 +41,16 @@ public class CubeSpawner : MonoBehaviour
         cube.Destroy();
     }
 
-    private Cube CreateCube(Cube cube, List<Cube> cubs)
+    private Cube CreateCube(Cube cube)
     {
         Cube newCube = Instantiate(cube, cube.transform.position, cube.transform.rotation);
 
         newCube.Init();
 
-        cubs.Add(newCube);
-
         return newCube;
     }
 
-    private void Force(List<Cube> cubs, Cube parentCube)
+    private void Explode(List<Cube> cubs, Cube parentCube)
     {
         foreach (Cube cube in cubs)
             cube.Explode(parentCube.transform.position, _explodeForce, _explodeRadius);

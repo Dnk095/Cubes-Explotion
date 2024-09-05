@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class ExplodeManager : MonoBehaviour
 {
-
     public void ExplodeForce(Cube cube, float force, float radius)
     {
         foreach (Cube explodedCube in GetExplodabledObject(cube, radius))
