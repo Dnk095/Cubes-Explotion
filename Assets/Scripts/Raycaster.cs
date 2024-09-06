@@ -3,7 +3,6 @@ using UnityEngine;
 public class Raycaster : MonoBehaviour
 {
     [SerializeField] private Camera _camera;
-    [SerializeField] private CubeSpawner _spawner;
     [SerializeField] private LayerMask _layerMask;
 
     private int _mousseButtonTrigger = 0;
@@ -18,7 +17,7 @@ public class Raycaster : MonoBehaviour
             {
                 if (hit.collider.TryGetComponent(out Cube cube))
                 {
-                    _spawner.Spawn(cube);
+                    cube.Destroy();
                 }
             }
         }
