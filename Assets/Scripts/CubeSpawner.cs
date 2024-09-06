@@ -19,7 +19,7 @@ public class CubeSpawner : MonoBehaviour
             createdCubs.Add(createdCube);
         }
 
-        Explode(createdCubs, cube);
+        AddForce(createdCubs, cube);
 
         createdCubs.Clear();
     }
@@ -33,7 +33,7 @@ public class CubeSpawner : MonoBehaviour
         return newCube;
     }
 
-    private void Explode(List<Cube> cubs, Cube parentCube)
+    private void AddForce(List<Cube> cubs, Cube parentCube)
     {
         foreach (Cube cube in cubs)
             cube.AddForce(parentCube.transform.position, parentCube.ExplodeForce, parentCube.ExplodeRadius);
