@@ -14,6 +14,7 @@ public class CubeExploder : MonoBehaviour
         Destroy(explodeEffect.gameObject, delay);
 
         ExplodeForce(cube);
+        cube.Destroy();
     }
 
     public void ExplodeForce(Cube cube)
@@ -44,6 +45,6 @@ public class CubeExploder : MonoBehaviour
 
         float proportion = 1.0f - (distanse / (explodedCube.ExplodeRadius * explodedCube.Multiple)).magnitude;
 
-        return explodedCube.ExplodeForce*explodedCube.Multiple * proportion;
+        return explodedCube.ExplodeForce * explodedCube.Multiple * proportion;
     }
 }

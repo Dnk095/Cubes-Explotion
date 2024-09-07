@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 686986807}
   - component: {fileID: 686986806}
   m_Layer: 0
-  m_Name: Raycast
+  m_Name: ClickHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -334,6 +334,8 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 8
+  _spawner: {fileID: 279632455}
+  _exploder: {fileID: 1783353770}
 --- !u!4 &686986807
 Transform:
   m_ObjectHideFlags: 0

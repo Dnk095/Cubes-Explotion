@@ -11,17 +11,13 @@ public class CubeSpawner : MonoBehaviour
         int maxQuantity = 6;
         int quantityCubes = Random.Range(minQuantity, maxQuantity + 1);
 
-        Cube createdCube;
-
         for (int i = 0; i < quantityCubes; i++)
-        {
-            createdCube = CreateCube(cube);
-            createdCubs.Add(createdCube);
-        }
+            createdCubs.Add(CreateCube(cube));
 
         AddForce(createdCubs, cube);
 
         createdCubs.Clear();
+        cube.Destroy();
     }
 
     private Cube CreateCube(Cube cube)

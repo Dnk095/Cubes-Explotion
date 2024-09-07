@@ -8,8 +8,6 @@ public class Cube : MonoBehaviour
     [SerializeField] private float _multiple;
     [SerializeField] private float _explodeRadius;
     [SerializeField] private float _explodeForce;
-    [SerializeField] private CubeSpawner _spawner;
-    [SerializeField] private CubeExploder _exploder;
 
     private Rigidbody _rigidbody;
 
@@ -29,16 +27,19 @@ public class Cube : MonoBehaviour
         _material = GetComponent<MeshRenderer>().material;
     }
 
-    public void Destroy()
+    public void REDFt(out bool _canSpawn)
     {
+        _canSpawn = false;
+
         int minChaceSpawn = 0;
         int maxChaceSpawn = 100;
 
         if (Random.Range(minChaceSpawn, maxChaceSpawn + 1) <= _chanceSpawn)
-            _spawner.Spawn(this);
-        else
-            _exploder.Explode(this);
+            _canSpawn = true;      
+    }
 
+    public void Destroy()
+    {
         Destroy(gameObject);
     }
 
